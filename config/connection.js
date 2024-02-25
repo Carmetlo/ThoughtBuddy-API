@@ -5,4 +5,4 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/thoughtbuddy', 
   useUnifiedTopology: true
 });
 
-module.exports = mongoose.connection;
+module.exports = mongoose.connection; 
