@@ -12,7 +12,15 @@ const UserController = {
   },
 
   getUserById({ params }, res) {
-    User.findById({ _id: params.id }).catch((err) => {
+    User.findById({ _id: params.id })
+    .then((userData) => {
+      if (!userData) {
+        res.status(404).json({ message: "No user found with this id!" });
+        return;
+      }
+      res.json(userData);
+    })
+    .catch((err) => {
       console.log(err);
       res.status(500).json(err);
     });
@@ -28,7 +36,7 @@ const UserController = {
   },
 
   updateUser({ params, body }, res) {
-    User.findByIdAndUpdate(req.params.id, req.body, {
+    User.findByIdAndUpdate(params.id, body, {
       new: true,
       runValidators: true,
     })
@@ -45,7 +53,7 @@ const UserController = {
       });
   },
 
-  deleteUser(req, res) {
+  deleteUser({ params }, res) {
     User.findByIdAndDelete(req.params.id)
       .then((userData) => {
         if (!userData) {
@@ -63,7 +71,7 @@ const UserController = {
   addFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
-      { $pull: { friends: req.params.friendId } },
+      { $addToSet: { friends: req.params.friendId } },
       { new: true }
     )
       .then((userData) => {
