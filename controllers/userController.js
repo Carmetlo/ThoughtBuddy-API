@@ -5,24 +5,24 @@ const UserController = {
   getAllUsers(req, res) {
     User.find({})
         .then(userData => res.json(userData))
-        .catch(err => {
+        .catch(err => 
             console.log(err);
-            res.status(500).json(err);
+            res.status(500).json(err));
         },
 
 getUserById({ params }, res) {
     User.findById({ _id: params.id })
-    .catch(err => {
+    .catch(err => 
         console.log(err);
-        res.status(500).json(err);
+        res.status(500).json(err));
     },
 
 createUser(req, res) {
     User.create(req.body)
     .then(userData => res.json(userData))
-    .catch(err => {
+    .catch(err => 
         console.log(err);
-        res.status(500).json(err);
+        res.status(500).json(err));
     },
 
 updateUser({ params, body }, res) {
@@ -34,13 +34,13 @@ updateUser({ params, body }, res) {
         }
         res.json(userData);
     })
-    .catch(err => {
+    .catch(err => 
         console.log(err);
-        res.status(500).json(err);
+        res.status(500).json(err));
     },
 
-    deleteUser({ params }, res) {
-        User.findeByIdAndDelete(req.params.id)
+    deleteUser(req, res) {
+        User.findByIdAndDelete(req.params.id)
         .then(userData => {
             if (!userData) {
                 res.status(404).json({ message: 'No user found with this id!' });
@@ -48,9 +48,9 @@ updateUser({ params, body }, res) {
             }
             res.json(userData);
         })
-        .catch(err => {
+        .catch(err =>
             console.log(err);
-            res.status(500).json(err);
+            res.status(500).json(err));
         },
 
         addFriend(req, res) {
@@ -73,7 +73,7 @@ updateUser({ params, body }, res) {
                     { $pull: { friends: req.params.friendId } },
                     { new: true }
                 )
-                .then(userData => {
+                .then(userData) => {
                     if (!userData) {
                         res.status(404).json({ message: 'No user found with this id!' });
                         return;
