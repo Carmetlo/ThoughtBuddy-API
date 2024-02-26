@@ -6,7 +6,9 @@ const Thought = require('./Thought');
 mongoose.connect('mongodb://localhost:27017/ThoughtBuddy', { useNewUrlParser: true, useUnifiedTopology: true });
 
 async function seedDatabase() {
-
+    await User.deleteMany({});
+    await Thought.deleteMany({});
+    
     const users = [];
 
    
