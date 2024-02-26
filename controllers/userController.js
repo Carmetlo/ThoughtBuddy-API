@@ -54,7 +54,7 @@ const UserController = {
   },
 
   deleteUser({ params }, res) {
-    User.findByIdAndDelete(req.params.id)
+    User.findByIdAndDelete(params.id)
       .then((userData) => {
         if (!userData) {
           res.status(404).json({ message: "No user found with this id!" });
@@ -68,10 +68,10 @@ const UserController = {
       });
   },
 
-  addFriend(req, res) {
-    User.findOneAndUpdate(
-      { _id: req.params.userId },
-      { $addToSet: { friends: req.params.friendId } },
+  addFriend({ params, body }, res) {
+    User.findByIdAndUpdate(
+      params.userId,
+      { $addToSet: { friends: params.friendId } },
       { new: true }
     )
       .then((userData) => {
