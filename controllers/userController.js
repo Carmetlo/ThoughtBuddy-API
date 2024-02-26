@@ -60,7 +60,7 @@ const UserController = {
           res.status(404).json({ message: "No user found with this id!" });
           return;
         }
-        return Thought.deleteMany({ username: userData.username });
+        return Thought.deleteMany({ userId: userData._id });
       })
       .then(() => {
         res.json({ message: "User and associated thoughts deleted!" });

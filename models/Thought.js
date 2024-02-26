@@ -15,6 +15,11 @@ const ThoughtSchema = new Schema(
             default: Date.now,
             get: timestamp => new Date(timestamp).toLocaleString(),
         },
+        userId: {
+            type: Schema.Types.ObjectId,
+            ref: 'User',
+            required: true,
+        },
         username: {
             type: String,
             required: true,
